@@ -1,6 +1,6 @@
 devChk
 ======
 
-.. automodule:: _3_software.myLib.devChk.devChk
+.. automodule:: _3_software.devChk
    :members:
    

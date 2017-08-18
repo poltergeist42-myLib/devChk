@@ -4,8 +4,8 @@ Informations générales devChk
 
 :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
 :Projet:             devChk
-:dépôt GitHub:       
-:documentation:      
+:dépôt GitHub:       https://github.com/poltergeist42-myLib/devChk
+:documentation:      https://poltergeist42-mylib.github.io/devChk/
 :Licence:            CC BY-NC-SA 4.0
 :Liens:              https://creativecommons.org/licenses/by-nc-sa/4.0/
 

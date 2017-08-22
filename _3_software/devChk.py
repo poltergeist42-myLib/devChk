@@ -8,12 +8,14 @@ Infos
 
    :Nom du fichier:     devChk.py
    :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
-   :Version:            20161112
+   :Version:            20170821
 
 ####
 
-   :Licence:            CC-BY-NC-SA
-   :Liens:              https://creativecommons.org/licenses/by-nc-sa/4.0/
+    :dépôt GitHub:       https://github.com/poltergeist42-myLib/devChk
+    :documentation:      https://poltergeist42-mylib.github.io/devChk/
+    :Licence:            CC-BY-NC-SA
+    :Liens:              https://creativecommons.org/licenses/by-nc-sa/4.0/
 
 ####
 
@@ -48,6 +50,8 @@ Class C_DebugMsg
 """
 
 from os import system, remove
+import time
+import functools
 
 
 class C_DebugMsg(object) :
@@ -169,7 +173,148 @@ class C_DebugMsg(object) :
         if v_chk and self.affichage :
                 print( "\n\t\tL'instance de la class {} est terminee".format( v_varValue ))
                 
+####
+    
+class C_Benchmark( object ) :
+    """ Calss permettant d'effectuer des mesures sur une fonction
+
+        - si "time" est passé comme premier argument, la classe renvaira le temps
+          d'éxécution de la fonction décorée.
+    """
+    d_adr = {}
+        # variable de class, elle est commune à toute les instance de la class
+        
+    def __init__( self, *argsBenchmark, **kwargsBenchmark ) :
+        """ Déclaration des variable global """
+        self.argsBenchmark      = argsBenchmark
+            # positional arguments passés au décorateur
+        self.kwargsBenchmark    = kwargsBenchmark
+            # default arguments passés au décorateur
+            
+        if not self.argsBenchmark :
+            self.v_timeChk      = True
+            self.v_CPUChk       = False
+        if self.argsBenchmark[0].lower() == "time" :
+            self.v_timeChk      = True
+            self.v_CPUChk       = False
+        if self.argsBenchmark[0].lower() == "cpu" :
+            self.v_timeChk      = False
+            self.v_CPUChk       = True
+            
+        self._v_funcName        = ""
+        self._v_startTime       = 0
+        self._v_tmpEcoule       = 0
+        self._v_tmpCumule       = 0
+        self._v_tmpMoyen        = 0
+        self._v_nbeAppel        = 0
+            
+####
+            
+    def __call__( self, v_func ) :
+        @functools.wraps(v_func)
+        def f_appelFonc( *args, **kwargs ) :
+            """ méthode appelée à chaque appel de la fonction décorée """
+            self.f_setFuncName( v_func )
+            if self.v_timeChk :
+                self.f_setNbeAppel()
+                self.f_setStartTime()
                 
+            if self.v_CPUChk :
+                pass
+                
+            v_functionDecoree = v_func(*args, **kwargs)
+            
+            if self.v_timeChk :
+                self.f_setTempEcoule()
+                self.f_setTmpCumule()
+                self.f_setTmpMoyen()
+                
+                print(  "{} : durée : {} - moyenne : {} - "\
+                        "Nbe d'appel : {} - total : {}".format(
+                            self.f_getFunName(), self.f_getTempEcoule(),
+                            self.f_getTmpMoyen(), self.f_getNbeAppel(),
+                            self.f_getTmpCumule() 
+                            ))
+                
+            if self.v_CPUChk :
+                pass
+                
+            return v_functionDecoree
+            self.__class__.adr[v_func.__name__] = self
+        return f_appelFonc
+####
+
+    def f_setFuncName( self, v_func ) :
+        """ récupère le nom de la fonction """
+        self._v_funcName = v_func.__name__
+    
+####
+
+    def f_getFunName( self ) :
+        """ retourne '_v_funcName' """
+        return self._v_funcName
+
+####
+
+    def f_setStartTime( self ) :
+        """ récupère le début d'éxécution de la fonction décorée """
+        self._v_startTime = time.clock()
+        
+####
+
+    def f_getStartTime( self ) :
+        """ retourne '_v_startTime' """
+        return self._v_startTime
+####
+
+    def f_setTempEcoule( self ) :
+        """ calcul le temp ecoulé depuis le début de fonctionnement de la fonction """
+        self._v_tmpEcoule = time.clock() - self.f_getStartTime()
+
+####
+
+    def f_getTempEcoule( self ) :
+        """ retourne '_v_tmpEcoule' """
+        return self._v_tmpEcoule
+        
+####
+
+    def f_setTmpCumule( self ) :
+        """ Calcul le temp total d'éxécution de la fonction (addition des temps de
+            chaque appel)
+        """
+        self._v_tmpCumule += self.f_getTempEcoule()
+        
+####
+
+    def f_getTmpCumule( self ) :
+        """ retourne '_v_tmpCumule' """
+        return self._v_tmpCumule
+
+####
+
+    def f_setTmpMoyen( self ) :
+        """" calcul la durée moyenne d'éxécution de la fonction décorée """
+        self._v_tmpMoyen = self.f_getTmpCumule() / self.f_getNbeAppel()
+
+####
+
+    def f_getTmpMoyen( self ) :
+        """ retourne '_v_tmpMoyen' """
+        return self._v_tmpMoyen
+
+####
+
+    def f_setNbeAppel( self ) :
+        """ compte le nombre d'appel fait sur la fonction """
+        self._v_nbeAppel += 1
+
+####
+
+    def f_getNbeAppel( self ) :
+        """ retourne '_v_nbeAppel' """
+        return self._v_nbeAppel
+
 ####
         
 class C_GitChk(object) :

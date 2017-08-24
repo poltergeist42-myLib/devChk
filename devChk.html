@@ -57,7 +57,7 @@
 </tr>
 <tr class="field-even field"><th class="field-name">Autheur:</th><td class="field-body"><a class="reference external" href="https://github.com/poltergeist42">Poltergeist42</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">20161112</td>
+<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">20170822</td>
 </tr>
 </tbody>
 </table>
@@ -68,6 +68,10 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
+<tr class="field-odd field"><th class="field-name">dépôt GitHub:</th><td class="field-body"><a class="reference external" href="https://github.com/poltergeist42-myLib/devChk">https://github.com/poltergeist42-myLib/devChk</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">documentation:</th><td class="field-body"><a class="reference external" href="https://poltergeist42-mylib.github.io/devChk/">https://poltergeist42-mylib.github.io/devChk/</a></td>
+</tr>
 <tr class="field-odd field"><th class="field-name">Licence:</th><td class="field-body">CC-BY-NC-SA</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Liens:</th><td class="field-body"><a class="reference external" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">https://creativecommons.org/licenses/by-nc-sa/4.0/</a></td>
@@ -81,7 +85,7 @@
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">dev langage:</th><td class="field-body">Python 3.4</td>
+<tr class="field-odd field"><th class="field-name">dev langage:</th><td class="field-body">Python 3.6</td>
 </tr>
 </tbody>
 </table>
@@ -93,6 +97,8 @@
 <blockquote>
 <div><ul class="simple">
 <li>os</li>
+<li>time</li>
+<li>functools</li>
 </ul>
 </div></blockquote>
 </div>
@@ -128,8 +134,97 @@
 <div class="section" id="class-c-debugmsg">
 <h2>Class C_DebugMsg<a class="headerlink" href="#class-c-debugmsg" title="Lien permanent vers ce titre">¶</a></h2>
 <dl class="class">
+<dt id="_3_software.devChk.C_Benchmark">
+<em class="property">class </em><code class="descclassname">_3_software.devChk.</code><code class="descname">C_Benchmark</code><span class="sig-paren">(</span><em>*argsBenchmark</em>, <em>**kwargsBenchmark</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Calss permettant d&#8217;effectuer des mesures sur une fonction</p>
+<ul class="simple">
+<li>si &#8220;time&#8221; est passé comme premier argument, la classe renvaira le temps
+d&#8217;éxécution de la fonction décorée.</li>
+</ul>
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_getFunName">
+<code class="descname">f_getFunName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_getFunName" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_funcName&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_getNbeAppel">
+<code class="descname">f_getNbeAppel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_getNbeAppel" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_nbeAppel&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_getStartTime">
+<code class="descname">f_getStartTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_getStartTime" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_startTime&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_getTempEcoule">
+<code class="descname">f_getTempEcoule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_getTempEcoule" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_tmpEcoule&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_getTmpCumule">
+<code class="descname">f_getTmpCumule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_getTmpCumule" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_tmpCumule&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_getTmpMoyen">
+<code class="descname">f_getTmpMoyen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_getTmpMoyen" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_tmpMoyen&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_setFuncName">
+<code class="descname">f_setFuncName</code><span class="sig-paren">(</span><em>v_func</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_setFuncName" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>récupère le nom de la fonction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_setNbeAppel">
+<code class="descname">f_setNbeAppel</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_setNbeAppel" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>compte le nombre d&#8217;appel fait sur la fonction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_setStartTime">
+<code class="descname">f_setStartTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_setStartTime" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>récupère le début d&#8217;éxécution de la fonction décorée</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_setTempEcoule">
+<code class="descname">f_setTempEcoule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_setTempEcoule" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>calcul le temp ecoulé depuis le début de fonctionnement de la fonction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_setTmpCumule">
+<code class="descname">f_setTmpCumule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_setTmpCumule" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Calcul le temp total d&#8217;éxécution de la fonction (addition des temps de
+chaque appel)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_setTmpMoyen">
+<code class="descname">f_setTmpMoyen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_setTmpMoyen" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>&#8221; calcul la durée moyenne d&#8217;éxécution de la fonction décorée</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_Benchmark.f_timePtrMsg">
+<code class="descname">f_timePtrMsg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_Benchmark.f_timePtrMsg" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>affiche à l&#8217;écran le résultat du décorator &#8216;time&#8217;</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
 <dt id="_3_software.devChk.C_DebugMsg">
-<em class="property">class </em><code class="descclassname">_3_software.devChk.</code><code class="descname">C_DebugMsg</code><a class="headerlink" href="#_3_software.devChk.C_DebugMsg" title="Lien permanent vers cette définition">¶</a></dt>
+<em class="property">class </em><code class="descclassname">_3_software.devChk.</code><code class="descname">C_DebugMsg</code><span class="sig-paren">(</span><em>*argsDbg</em>, <em>**kwargsDbg</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p><strong>C_DebugMsg(object)</strong></p>
 <p>Class permettant d&#8217;intercepter et d&#8217;afficher les message de debug.</p>
 <p>Cette Class doit être instancier dans la fonction <strong>__init__()</strong> pour une Class
@@ -143,14 +238,20 @@ l&#8217;ensemble des messages seront masques.</p>
 </pre></div>
 </div>
 <dl class="method">
-<dt id="_3_software.devChk.C_DebugMsg.dbgDel">
-<code class="descname">dbgDel</code><span class="sig-paren">(</span><em>v_chk</em>, <em>v_varValue</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.dbgDel" title="Lien permanent vers cette définition">¶</a></dt>
+<dt id="_3_software.devChk.C_DebugMsg.f_dbgDecoratorPrint">
+<code class="descname">f_dbgDecoratorPrint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_dbgDecoratorPrint" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>Permet d&#8217;afficher les informations générées par la fonction décorée</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_DebugMsg.f_dbgDel">
+<code class="descname">f_dbgDel</code><span class="sig-paren">(</span><em>v_chk</em>, <em>v_varValue</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_dbgDel" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p>permet d&#8217;informer de la fin d&#8217;une instannce ( methode : &#8216;__del__&#8217;)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="_3_software.devChk.C_DebugMsg.dbgPrint">
-<code class="descname">dbgPrint</code><span class="sig-paren">(</span><em>v_chk</em>, <em>v_varName</em>, <em>v_varValue</em>, <em>v_endOfLine=''</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.dbgPrint" title="Lien permanent vers cette définition">¶</a></dt>
+<dt id="_3_software.devChk.C_DebugMsg.f_dbgPrint">
+<code class="descname">f_dbgPrint</code><span class="sig-paren">(</span><em>v_chk</em>, <em>v_varName</em>, <em>v_varValue</em>, <em>v_endOfLine=''</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_dbgPrint" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p>Intercept les messages pour les formater de facon homogene.</p>
 <p>Pour permettre de masquer les messages d&#8217;une seule fonction a la fois,
 il est conseille d&#8217;ajouter une variable local initialisee a <strong>True</strong>
@@ -159,14 +260,14 @@ mise a <strong>False</strong> pour que l&#8217;affichage local soit desactive.</
 <p>Ex:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Affichage active</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">dbgPrint</span><span class="p">(</span>   <span class="n">v_dbg</span><span class="p">,</span> 
+<span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">f_dbgPrint</span><span class="p">(</span>   <span class="n">v_dbg</span><span class="p">,</span> 
                             <span class="p">[</span><span class="s2">&quot;chaine_de_caractere&quot;</span><span class="p">],</span>
                             <span class="p">[</span><span class="n">la_variable_a_controller</span><span class="p">]</span>
                         <span class="p">)</span>
                     
 <span class="c1"># Affichage desactive</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">False</span>
-<span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">dbgPrint</span><span class="p">(</span>   <span class="n">v_dbg</span><span class="p">,</span> 
+<span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">f_dbgPrint</span><span class="p">(</span>   <span class="n">v_dbg</span><span class="p">,</span> 
                             <span class="p">[</span><span class="s2">&quot;chaine_de_caractere&quot;</span><span class="p">],</span>
                             <span class="p">[</span><span class="n">la_variable_a_controller</span><span class="p">]</span>
                         <span class="p">)</span>
@@ -178,14 +279,14 @@ la ligne du message de debug.</p>
 <p>Ex:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Affichage desactive par une valeur booleen</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">dbgPrint</span><span class="p">(</span>   <span class="kc">False</span><span class="p">,</span> 
+<span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">f_dbgPrint</span><span class="p">(</span>   <span class="kc">False</span><span class="p">,</span> 
                             <span class="p">[</span><span class="s2">&quot;chaine_de_caractere&quot;</span><span class="p">],</span>
                             <span class="p">[</span><span class="n">la_variable_a_controller</span><span class="p">]</span>
                         <span class="p">)</span>
                     
 <span class="c1"># Affichage desactive en commentant la ligne</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">True</span>
-<span class="c1"># i_monIstanceDbg.dbgPrint(   v_dbg, </span>
+<span class="c1"># i_monIstanceDbg.f_dbgPrint(   v_dbg, </span>
                         <span class="c1"># [&quot;chaine_de_caractere&quot; ou varialbe_de_reference],</span>
                         <span class="c1"># [la_variable_a_controller]</span>
                     <span class="c1"># )</span>
@@ -196,10 +297,34 @@ a chaque fonction.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="_3_software.devChk.C_DebugMsg.f_getFunName">
+<code class="descname">f_getFunName</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_getFunName" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_funcName&#8217;</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_DebugMsg.f_getFuncRetun">
+<code class="descname">f_getFuncRetun</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_getFuncRetun" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>retourne &#8216;_v_funcRetun&#8217;</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="_3_software.devChk.C_DebugMsg.f_setAffichage">
 <code class="descname">f_setAffichage</code><span class="sig-paren">(</span><em>v_bool</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_setAffichage" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p><strong>f_setAffichage( bool )</strong></p>
 <p>permet d&#8217;activer ( True ) ou de desactiver ( False ) l&#8217;affichage.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_DebugMsg.f_setFuncName">
+<code class="descname">f_setFuncName</code><span class="sig-paren">(</span><em>v_func</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_setFuncName" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>récupère le nom de la fonction</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="_3_software.devChk.C_DebugMsg.f_setFuncRetun">
+<code class="descname">f_setFuncRetun</code><span class="sig-paren">(</span><em>v_funcRetun</em><span class="sig-paren">)</span><a class="headerlink" href="#_3_software.devChk.C_DebugMsg.f_setFuncRetun" title="Lien permanent vers cette définition">¶</a></dt>
+<dd><p>permet de récupérer se que retourne la fonction décorée</p>
 </dd></dl>
 
 </dd></dl>

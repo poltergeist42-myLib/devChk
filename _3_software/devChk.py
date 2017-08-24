@@ -8,7 +8,7 @@ Infos
 
    :Nom du fichier:     devChk.py
    :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
-   :Version:            20170821
+   :Version:            20170822
 
 ####
 
@@ -19,7 +19,7 @@ Infos
 
 ####
 
-    :dev langage:       Python 3.4
+    :dev langage:       Python 3.6
 
 ####
 
@@ -27,6 +27,8 @@ List des Libs
 =============
 
     * os
+    * time
+    * functools
 
 ####
 
@@ -55,45 +57,89 @@ import functools
 
 
 class C_DebugMsg(object) :
-    """**C_DebugMsg(object)**
+    """ **C_DebugMsg(object)**
     
-    Class permettant d'intercepter et d'afficher les message de debug.
+        Class permettant d'intercepter et d'afficher les message de debug.
 
-    Cette Class doit être instancier dans la fonction **__init__()** pour une Class
-    et instancier en premier dans la fontion **main()** pour les fonctions
-    n'appartenenant pas a une Class.
-            
-    Le constructeur a un argument par defaut de type **booleen** qui est predefinis
-    sur **True**. Si se parametres est a **False**,
-    l'ensemble des messages seront masques.
-    
-    Creation de l'instance :
-    ::
-    
-        i_monIstanceDbg = C_DebugMsg( [booleen (facultatif si == True)] )
-
+        Cette Class doit être instancier dans la fonction **__init__()** pour une Class
+        et instancier en premier dans la fontion **main()** pour les fonctions
+        n'appartenenant pas a une Class.
+                
+        Le constructeur a un argument par defaut de type **booleen** qui est predefinis
+        sur **True**. Si se parametres est a **False**,
+        l'ensemble des messages seront masques.
+        
+        Creation de l'instance :
+        ::
+        
+            i_monIstanceDbg = C_DebugMsg( [booleen (facultatif si == True)] )
     """
-    
-    def __init__( self ) :
+    d_adr = {}
+        # variable de class, elle est commune à toute les instance de la class
+        
+    def __init__( self,  *argsDbg, **kwargsDbg) :
         """ Init variables """
-        self.affichage = False
-        self.debugNumber = 0
+        self.argsDbg            = argsDbg
+            # positional arguments passés au décorateur
+        self.kwargsDbg          = kwargsDbg
+            # default arguments passés au décorateur
+
+        self._v_funcName        = ""
+        self._v_funcRetun       = ()
         
-        self.d_fnNumber = {}
+        if not self.kwargsDbg :
+            self.affichage      = True
+        if "affichage" in self.kwargsDbg :
+            self.affichage      = self.kwargsDbg["affichage"]
+        self.debugNumber        = 0
         
+        self.d_fnNumber         = {}
+        
+        ## retrocompatibilité
+        self.dbgPrint           = self.f_dbgPrint
+        self.dbgDel             = self.f_dbgDel
 ####
         
-    def __del__(self) :
-        """destructor
+    # def __del__(self) :
+        # """destructor
         
-            il faut utilise :
-            ::
+            # il faut utilise :
+            # ::
             
-                del [nom_de_l'_instance]
-        """
-        v_className = self.__class__.__name__
-        print("\n\t\tL'instance de la class {} est terminee".format(v_className))
+                # del [nom_de_l'_instance]
+        # """
+        # v_className = self.__class__.__name__
+        # print("\n\t\tL'instance de la class {} est terminee".format(v_className))
         
+####
+
+    def __call__( self, v_func ) :
+        @functools.wraps(v_func)
+        def f_appelFonc( *args, **kwargs ) :
+            """ méthode appelée à chaque appel de la fonction décorée """
+            self.f_setFuncName( v_func )
+            
+            v_functionDecoree = v_func( *args, **kwargs )
+            
+            self.f_setFuncRetun( v_functionDecoree )
+            self.f_dbgDecoratorPrint()
+            
+            return v_functionDecoree
+            self.__class__.adr[v_func.__name__] = self
+        return f_appelFonc
+
+####
+
+    def f_setFuncName( self, v_func ) :
+        """ récupère le nom de la fonction """
+        self._v_funcName = v_func.__name__
+    
+####
+
+    def f_getFunName( self ) :
+        """ retourne '_v_funcName' """
+        return self._v_funcName
+
 ####
 
     def f_setAffichage( self, v_bool ) :
@@ -103,8 +149,28 @@ class C_DebugMsg(object) :
         """
         self.affichage = bool( v_bool )
 
+####
+
+    def f_setFuncRetun( self, v_funcRetun ) :
+        """ permet de récupérer se que retourne la fonction décorée """
+        self._v_funcRetun = v_funcRetun
+
+####
+
+    def f_getFuncRetun( self ) :
+        """ retourne '_v_funcRetun' """
+        return self._v_funcRetun
+
+####
+
+    def f_dbgDecoratorPrint( self ) :
+        """ Permet d'afficher les informations générées par la fonction décorée """
+        print(  f"dbgMsg[{self.f_getFunName()}] : "\
+                f"{type(self.f_getFuncRetun())}, {self.f_getFuncRetun()}, " )
+
+####
         
-    def dbgPrint(self, v_chk, v_varName, v_varValue, v_endOfLine = "") :
+    def f_dbgPrint(self, v_chk, v_varName, v_varValue, v_endOfLine = "") :
         """
             Intercept les messages pour les formater de facon homogene.
             
@@ -117,14 +183,14 @@ class C_DebugMsg(object) :
                     
                     # Affichage active
                     v_dbg = True
-                    i_monIstanceDbg.dbgPrint(   v_dbg, 
+                    i_monIstanceDbg.f_dbgPrint(   v_dbg, 
                                                 ["chaine_de_caractere"],
                                                 [la_variable_a_controller]
                                             )
                                         
                     # Affichage desactive
                     v_dbg = False
-                    i_monIstanceDbg.dbgPrint(   v_dbg, 
+                    i_monIstanceDbg.f_dbgPrint(   v_dbg, 
                                                 ["chaine_de_caractere"],
                                                 [la_variable_a_controller]
                                             )
@@ -137,14 +203,14 @@ class C_DebugMsg(object) :
             
                     # Affichage desactive par une valeur booleen
                     v_dbg = True
-                    i_monIstanceDbg.dbgPrint(   False, 
+                    i_monIstanceDbg.f_dbgPrint(   False, 
                                                 ["chaine_de_caractere"],
                                                 [la_variable_a_controller]
                                             )
                                         
                     # Affichage desactive en commentant la ligne
                     v_dbg = True
-                    # i_monIstanceDbg.dbgPrint(   v_dbg, 
+                    # i_monIstanceDbg.f_dbgPrint(   v_dbg, 
                                             # ["chaine_de_caractere" ou varialbe_de_reference],
                                             # [la_variable_a_controller]
                                         # )
@@ -168,7 +234,7 @@ class C_DebugMsg(object) :
                 
 ####
 
-    def dbgDel( self, v_chk, v_varValue ) :
+    def f_dbgDel( self, v_chk, v_varValue ) :
         """ permet d'informer de la fin d'une instannce ( methode : '__del__')"""
         if v_chk and self.affichage :
                 print( "\n\t\tL'instance de la class {} est terminee".format( v_varValue ))
@@ -229,13 +295,8 @@ class C_Benchmark( object ) :
                 self.f_setTmpCumule()
                 self.f_setTmpMoyen()
                 
-                print(  "{} : durée : {} - moyenne : {} - "\
-                        "Nbe d'appel : {} - total : {}".format(
-                            self.f_getFunName(), self.f_getTempEcoule(),
-                            self.f_getTmpMoyen(), self.f_getNbeAppel(),
-                            self.f_getTmpCumule() 
-                            ))
-                
+                self.f_timePtrMsg()
+                                
             if self.v_CPUChk :
                 pass
                 
@@ -314,6 +375,17 @@ class C_Benchmark( object ) :
     def f_getNbeAppel( self ) :
         """ retourne '_v_nbeAppel' """
         return self._v_nbeAppel
+
+####
+
+    def f_timePtrMsg( self ) :
+        """ affiche à l'écran le résultat du décorator 'time' """
+        print(  "timeMsg[{}] : durée : {} - moyenne : {} - "\
+                "Nbe d'appel : {} - total : {}".format(
+                    self.f_getFunName(), self.f_getTempEcoule(),
+                    self.f_getTmpMoyen(), self.f_getNbeAppel(),
+                    self.f_getTmpCumule() 
+                    ))
 
 ####
         
@@ -409,13 +481,13 @@ def main():
     
     ## Normal 'end'
     v_dbg = True
-    i_debugTest.dbgPrint(   v_dbg, 
+    i_debugTest.f_dbgPrint(   v_dbg, 
                             "chaine_de_caractere",
                             main
                         )
                         
     ## double 'end'
-    i_debugTest.dbgPrint(   v_dbg, 
+    i_debugTest.f_dbgPrint(   v_dbg, 
                             "chaine_de_caractere",
                             main,
                             v_endOfLine = "\n\n"

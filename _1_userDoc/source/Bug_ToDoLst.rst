@@ -56,20 +56,30 @@ ToDo-list
 ------------------------------------------------------------------------------------------
     
     :Date de saisie:        20170818
-    :Date de traitemant:    
+    :Date de traitemant:    20170824
     :Cible:                 software
-    :Status:                NONE
+    :Status:                DONE
     :Problematique:         Transformer la classe 'C_DebugMsg' en décorateur
-    :Traitement:            
+    :Traitement:            Fait ...
 
 ------------------------------------------------------------------------------------------
     
     :Date de saisie:        20170818
+    :Date de traitemant:    20170824
+    :Cible:                 software
+    :Status:                DONE
+    :Problematique:         Créer une classe ou une fonction permettant d'obtenir le
+                            temp d'éxécution d'une fonction. Cette fonctionnalité sera
+                            utilisée en tant que décorateur.
+    :Traitement:            Fait ...
+                   
+------------------------------------------------------------------------------------------
+    
+    :Date de saisie:        20170822
     :Date de traitemant:    
     :Cible:                 software
     :Status:                NONE
-    :Problematique:         Créer une classe ou une fonction permettant d'obtenir le temp
-                            d'éxécution d'une fonction. Cette fonctionnalité sera utilisée
-                            en tant que décorateur.
+    :Problematique:         Prendre en compte l'état de 'self.affichage' en mode
+                            décorateur.
     :Traitement:            
                    

@@ -8,7 +8,7 @@ Infos
 
    :Nom du fichier:     devChk.py
    :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
-   :Version:            20170822
+   :Version:            20170824
 
 ####
 
@@ -45,9 +45,6 @@ lexique
    :**m_**:                 matrice
    
 ####
-
-Class C_DebugMsg
-================
 
 """
 
@@ -100,27 +97,17 @@ class C_DebugMsg(object) :
         self.dbgDel             = self.f_dbgDel
 ####
         
-    # def __del__(self) :
-        # """destructor
-        
-            # il faut utilise :
-            # ::
-            
-                # del [nom_de_l'_instance]
-        # """
-        # v_className = self.__class__.__name__
-        # print("\n\t\tL'instance de la class {} est terminee".format(v_className))
-        
-####
-
     def __call__( self, v_func ) :
         @functools.wraps(v_func)
         def f_appelFonc( *args, **kwargs ) :
             """ méthode appelée à chaque appel de la fonction décorée """
+            ## av Fonction décorée
             self.f_setFuncName( v_func )
             
+            ## Fonction décorée
             v_functionDecoree = v_func( *args, **kwargs )
             
+            ## ap Fonction décorée
             self.f_setFuncRetun( v_functionDecoree )
             self.f_dbgDecoratorPrint()
             
@@ -239,10 +226,12 @@ class C_DebugMsg(object) :
         if v_chk and self.affichage :
                 print( "\n\t\tL'instance de la class {} est terminee".format( v_varValue ))
                 
-####
+##########################################################################################
     
 class C_Benchmark( object ) :
-    """ Calss permettant d'effectuer des mesures sur une fonction
+    """ **C_Benchmark( object )**
+    
+        Calss permettant d'effectuer des mesures sur une fonction
 
         - si "time" est passé comme premier argument, la classe renvaira le temps
           d'éxécution de la fonction décorée.
@@ -280,6 +269,7 @@ class C_Benchmark( object ) :
         @functools.wraps(v_func)
         def f_appelFonc( *args, **kwargs ) :
             """ méthode appelée à chaque appel de la fonction décorée """
+            ## av Fonction décorée
             self.f_setFuncName( v_func )
             if self.v_timeChk :
                 self.f_setNbeAppel()
@@ -288,8 +278,10 @@ class C_Benchmark( object ) :
             if self.v_CPUChk :
                 pass
                 
+            ## Fonction décorée
             v_functionDecoree = v_func(*args, **kwargs)
             
+            ## ap Fonction décorée
             if self.v_timeChk :
                 self.f_setTempEcoule()
                 self.f_setTmpCumule()
@@ -387,7 +379,7 @@ class C_Benchmark( object ) :
                     self.f_getTmpCumule() 
                     ))
 
-####
+##########################################################################################
         
 class C_GitChk(object) :
     """**C_GitChk(object)**
@@ -399,17 +391,51 @@ class C_GitChk(object) :
     Cette Class doit être instancier dans la fonction **main()**.
     
     Le constructeur a un argument par defaut de type **booleen** qui est predefinis
-    sur **True**. Si se parametres est a **False**, l'ensemble des messages seront masques.
+    sur **True**. Si se parametres est a **False**, l'ensemble des messages seront
+    masques.
     
     Creation de l'instance : ::
     
         i_monIstanceGitChk = C_GitChk( [booleen (facultatif si == True)] )
 
     """
-    def __init__(self, control = True) :
-        """ Init variables """
-        self.controlActif = control
+    d_adr = {}
+        # variable de class, elle est commune à toute les instance de la class
         
+    def __init__( self, *argsGitChk, **kwargsGitChk ) :
+        """ Déclaration des variable global """
+        self.argsGitChk         = argsGitChk
+            # positional arguments passés au décorateur
+        self.kwargsGitChk       = kwargsGitChk
+            # default arguments passés au décorateur
+
+        ## valeur par défaut si aucun argument n'est passé
+        self.v_ctrl                 = True
+        self.v_debutFin             = "d"
+            
+            
+        ## Control des positional arguments
+        if self.argsGitChk :
+            for arg in self.argsGitChk :
+                if isinstance(arg, bool) :
+                    self.v_ctrl     = arg
+                
+                elif isinstance(arg, str) :
+                    if(arg.lower() == 'd') or (arg.lower() == 'f') :
+                        self.v_debutFin = arg
+
+                else :
+                    self.v_ctrl     = bool(arg)
+
+        ## Control des default arguments pour les clef "ctrl" et "df"
+        if "ctrl" in self.kwargsGitChk :
+            self.v_ctrl             = bool(self.kwargsGitChk["ctrl"])
+
+        if "df" in self.kwargsGitChk :
+            self.v_debutFin         = self.kwargsGitChk["df"].lower()
+
+####
+ 
     def __del__(self) :
         """destructor
         
@@ -418,53 +444,72 @@ class C_GitChk(object) :
             
                 del [nom_de_l'_instance]
         """
-        remove( "./chkBranch" )
-        v_className = self.__class__.__name__
-        print("\n\t\tL'instance de la class {} est terminee".format(v_className))
+        try :
+            remove( "./chkBranch" )
+        except FileNotFoundError :
+            pass
+            
+####
+
+    def __call__( self, v_func ) :
+        @functools.wraps(v_func)
+        def f_appelFonc( *args, **kwargs ) :
+            """ méthode appelée à chaque appel de la fonction décorée """
+            ## av Fonction décorée
+            if self.v_debutFin == "d" :
+                self.f_gitBranchChk()
+            
+            ## Fonction décorée
+            v_functionDecoree = v_func( *args, **kwargs )
+            
+            ## ap Fonction décorée
+            if self.v_debutFin == "f" :
+                self.f_gitBranchChk()
+            
+            return v_functionDecoree
+            self.__class__.adr[v_func.__name__] = self
+        return f_appelFonc
+
+####
         
     def f_gitBranchChk(self):
         """ 
         identifie la branch courante et emet une alerte
         si elle est differente de '* master'
         
-        N.B : Cette fonction doit être appeler sinon aucune action ne sera effectuée.
         """
-        if self.controlActif :
-            system("git branch > chkBranch")
-            v_chaine = "* master"
+        if self.v_ctrl :
+            v_chkFile = "./chkBranch"
+            system("git branch > {}".format(v_chkFile))
+            v_char = "*"
             v_chk = True
             v_chaineIsTrue = True
             
-            try :
-                v_localLib = open("./chkBranch")
-                
+            with open(v_chkFile) as v_localLib :
                 for line in v_localLib : 
-                    if not v_chaine in line : 
-                        v_chaineIsTrue = False
-                    else :
-                        v_chaineIsTrue = True
-                        break
-
-            except FileNotFoundError :
-                print("fichier non trouve")
-                v_chk = False
-                
-            finally :
-                if v_chk : v_localLib.close()
-                
-            if not v_chaineIsTrue :
-                print   (   " #####################################################\n",
-                            "#                                                   #\n",
-                            "# Attention, vous n'êtes pas sur la branch 'master' #\n",
-                            "#                                                   #\n",
-                            "#####################################################\n"
-                        )
+                    if v_char in line : 
+                        v_activeBranch = line[:-1]
+ 
+            v_spaceAv = (40-len(v_activeBranch))//2
+            v_spaceAp = 40-(v_spaceAv+len(v_activeBranch))
+            print   (   """
+                ##########################################
+                #                                        #
+                #  Attention, vous êtes sur la branch :  #
+                #{}{}{}#
+                #                                        #
+                ##########################################
+                        """.format((" "*v_spaceAv), v_activeBranch,(" "*v_spaceAp))
+                    )
 
         else :
             print("\n## le control de branch est desactive")
     
  ####
 
+@C_DebugMsg() 
+@C_Benchmark("time")
+@C_GitChk(1, 'd')
 def main():
     """ 
     Fonction principale 
@@ -472,7 +517,7 @@ def main():
     Cette Fonction ne sert que pour tester les differentes Class
     et methode de ce projet.
     """
-    system("cls")
+    # system("cls")
 
     #################################
     # Test de la class 'C_DebugMsg' #
@@ -498,10 +543,9 @@ def main():
     ###############################
     # Test de la class 'C_GitChk' #
     ###############################
-    
-    i_git = C_GitChk(True)
+    i_git = C_GitChk(False)
     i_git.f_gitBranchChk()
-    del i_git
+    # del i_git
     
 if __name__ == '__main__':
     main()

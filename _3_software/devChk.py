@@ -8,7 +8,7 @@ Infos
 
    :Nom du fichier:     devChk.py
    :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
-   :Version:            20170824
+   :Version:            20170825
 
 ####
 
@@ -19,7 +19,7 @@ Infos
 
 ####
 
-    :dev langage:       Python 3.6
+    :dev langage:       Python 3.4
 
 ####
 
@@ -73,29 +73,36 @@ class C_DebugMsg(object) :
     """
     d_adr = {}
         # variable de class, elle est commune à toute les instance de la class
-        
-    def __init__( self,  *argsDbg, **kwargsDbg) :
+    v_clsAffichage = False
+    def __init__( self,  *argsDecoratorIst, **kwargsDecoratorIst) :
         """ Init variables """
-        self.argsDbg            = argsDbg
+        self.argsDecoratorIst            = argsDecoratorIst
             # positional arguments passés au décorateur
-        self.kwargsDbg          = kwargsDbg
+        self.kwargsDecoratorIst          = kwargsDecoratorIst
             # default arguments passés au décorateur
 
         self._v_funcName        = ""
         self._v_funcRetun       = ()
         
-        if not self.kwargsDbg :
-            self.affichage      = True
-        if "affichage" in self.kwargsDbg :
-            self.affichage      = self.kwargsDbg["affichage"]
-        self.debugNumber        = 0
         
+        ## Control des positional arguments
+        if self.argsDecoratorIst :
+            for arg in self.argsDecoratorIst :
+                if isinstance(arg, bool) :
+                    C_DebugMsg.v_clsAffichage       = bool(arg)
+                else :
+                    C_DebugMsg.v_clsAffichage       = bool(arg)
+
+        ## Control des default arguments pour les clef "ctrl" et "df"
+        if "affichage" in self.kwargsDecoratorIst :
+            C_DebugMsg.v_clsAffichage      = bool(self.kwargsDecoratorIst["affichage"])
+
+        self.debugNumber        = 0
         self.d_fnNumber         = {}
         
         ## retrocompatibilité
         self.dbgPrint           = self.f_dbgPrint
         self.dbgDel             = self.f_dbgDel
-####
         
     def __call__( self, v_func ) :
         @functools.wraps(v_func)
@@ -115,48 +122,43 @@ class C_DebugMsg(object) :
             self.__class__.adr[v_func.__name__] = self
         return f_appelFonc
 
-####
 
     def f_setFuncName( self, v_func ) :
         """ récupère le nom de la fonction """
         self._v_funcName = v_func.__name__
     
-####
-
     def f_getFunName( self ) :
         """ retourne '_v_funcName' """
         return self._v_funcName
-
-####
 
     def f_setAffichage( self, v_bool ) :
         """ **f_setAffichage( bool )**
         
             permet d'activer ( True ) ou de desactiver ( False ) l'affichage.
         """
-        self.affichage = bool( v_bool )
-
-####
+        C_DebugMsg.v_clsAffichage = bool( v_bool )
+        
+    def f_getAffichage( self ) :
+        """ retourne 'C_DebugMsg.v_clsAffichage' """
+        return C_DebugMsg.v_clsAffichage
 
     def f_setFuncRetun( self, v_funcRetun ) :
         """ permet de récupérer se que retourne la fonction décorée """
         self._v_funcRetun = v_funcRetun
 
-####
-
     def f_getFuncRetun( self ) :
         """ retourne '_v_funcRetun' """
         return self._v_funcRetun
 
-####
-
     def f_dbgDecoratorPrint( self ) :
         """ Permet d'afficher les informations générées par la fonction décorée """
-        print(  f"dbgMsg[{self.f_getFunName()}] : "\
-                f"{type(self.f_getFuncRetun())}, {self.f_getFuncRetun()}, " )
+        if self.f_getAffichage() :
+            print(  "dbgMsg[ {0} ] : {1}, {2}".format(
+                        self.f_getFunName(),
+                        type(self.f_getFuncRetun()),
+                        self.f_getFuncRetun()
+                        ))
 
-####
-        
     def f_dbgPrint(self, v_chk, v_varName, v_varValue, v_endOfLine = "") :
         """
             Intercept les messages pour les formater de facon homogene.
@@ -205,25 +207,23 @@ class C_DebugMsg(object) :
             Pour faciliter la lecture lors du debug un numero unique est attribue
             a chaque fonction.
         """
-        if v_chk and self.affichage :
+        if v_chk and C_DebugMsg.v_clsAffichage :
             if not self.d_fnNumber :
                 self.d_fnNumber[v_varName] = self.debugNumber
-                print( "dbgMsg[{}] : {} - {}{}".format(self.d_fnNumber[v_varName], v_varName, v_varValue, v_endOfLine) )
+                print( "dbgMsg[ {} ] : {} - {}{}".format(self.d_fnNumber[v_varName], v_varName, v_varValue, v_endOfLine) )
                 
             if v_varName in self.d_fnNumber.keys() :
                 if self.debugNumber :
-                    print( "dbgMsg[{}] : {} - {}{}".format(self.d_fnNumber[v_varName], v_varName, v_varValue, v_endOfLine) )
+                    print( "dbgMsg[ {} ] : {} - {}{}".format(self.d_fnNumber[v_varName], v_varName, v_varValue, v_endOfLine) )
                 
             else :
                 self.debugNumber += 1
                 self.d_fnNumber[v_varName] = self.debugNumber
                 print( "dbgMsg[{}] : {} - {}{}".format(self.d_fnNumber[v_varName], v_varName, v_varValue, v_endOfLine) )
                 
-####
-
     def f_dbgDel( self, v_chk, v_varValue ) :
         """ permet d'informer de la fin d'une instannce ( methode : '__del__')"""
-        if v_chk and self.affichage :
+        if v_chk and C_DebugMsg.v_clsAffichage :
                 print( "\n\t\tL'instance de la class {} est terminee".format( v_varValue ))
                 
 ##########################################################################################
@@ -239,22 +239,33 @@ class C_Benchmark( object ) :
     d_adr = {}
         # variable de class, elle est commune à toute les instance de la class
         
-    def __init__( self, *argsBenchmark, **kwargsBenchmark ) :
+    v_clsAffichage = False
+        
+    def __init__( self, *argsDecoratorIst, **kwargsDecoratorIst ) :
         """ Déclaration des variable global """
-        self.argsBenchmark      = argsBenchmark
+        self.argsDecoratorIst      = argsDecoratorIst
             # positional arguments passés au décorateur
-        self.kwargsBenchmark    = kwargsBenchmark
+        self.kwargsDecoratorIst    = kwargsDecoratorIst
             # default arguments passés au décorateur
             
-        if not self.argsBenchmark :
-            self.v_timeChk      = True
-            self.v_CPUChk       = False
-        if self.argsBenchmark[0].lower() == "time" :
-            self.v_timeChk      = True
-            self.v_CPUChk       = False
-        if self.argsBenchmark[0].lower() == "cpu" :
-            self.v_timeChk      = False
-            self.v_CPUChk       = True
+        ## Control des positional arguments
+        if self.argsDecoratorIst :
+            for arg in self.argsDecoratorIst :
+                if isinstance(arg, bool) :
+                    C_Benchmark.v_clsAffichage       = bool(arg)
+
+                elif isinstance(arg, str) :
+                    if arg.lower() == "time" :
+                        self.v_timeChk      = True
+                        self.v_CPUChk       = False
+
+                    if arg.lower() == "cpu" :
+                        self.v_timeChk      = False
+                        self.v_CPUChk       = True
+
+                else :
+                    C_Benchmark.v_clsAffichage       = bool(arg)
+
             
         self._v_funcName        = ""
         self._v_startTime       = 0
@@ -262,8 +273,6 @@ class C_Benchmark( object ) :
         self._v_tmpCumule       = 0
         self._v_tmpMoyen        = 0
         self._v_nbeAppel        = 0
-            
-####
             
     def __call__( self, v_func ) :
         @functools.wraps(v_func)
@@ -294,129 +303,116 @@ class C_Benchmark( object ) :
                 
             return v_functionDecoree
             self.__class__.adr[v_func.__name__] = self
+            print( ":: " )
         return f_appelFonc
-####
+
+    def f_setAffichage( self, v_bool ) :
+        """ **f_setAffichage( bool )**
+        
+            permet d'activer ( True ) ou de desactiver ( False ) l'affichage.
+        """
+        C_Benchmark.v_clsAffichage = bool( v_bool )
+        
+    def f_getAffichage( self ) :
+        """ retourne 'C_Benchmark.v_clsAffichage' """
+        return C_Benchmark.v_clsAffichage
 
     def f_setFuncName( self, v_func ) :
         """ récupère le nom de la fonction """
         self._v_funcName = v_func.__name__
     
-####
-
     def f_getFunName( self ) :
         """ retourne '_v_funcName' """
         return self._v_funcName
-
-####
 
     def f_setStartTime( self ) :
         """ récupère le début d'éxécution de la fonction décorée """
         self._v_startTime = time.clock()
         
-####
-
     def f_getStartTime( self ) :
         """ retourne '_v_startTime' """
         return self._v_startTime
-####
 
     def f_setTempEcoule( self ) :
         """ calcul le temp ecoulé depuis le début de fonctionnement de la fonction """
         self._v_tmpEcoule = time.clock() - self.f_getStartTime()
 
-####
-
     def f_getTempEcoule( self ) :
         """ retourne '_v_tmpEcoule' """
         return self._v_tmpEcoule
         
-####
-
     def f_setTmpCumule( self ) :
         """ Calcul le temp total d'éxécution de la fonction (addition des temps de
             chaque appel)
         """
         self._v_tmpCumule += self.f_getTempEcoule()
         
-####
-
     def f_getTmpCumule( self ) :
         """ retourne '_v_tmpCumule' """
         return self._v_tmpCumule
-
-####
 
     def f_setTmpMoyen( self ) :
         """" calcul la durée moyenne d'éxécution de la fonction décorée """
         self._v_tmpMoyen = self.f_getTmpCumule() / self.f_getNbeAppel()
 
-####
-
     def f_getTmpMoyen( self ) :
         """ retourne '_v_tmpMoyen' """
         return self._v_tmpMoyen
-
-####
 
     def f_setNbeAppel( self ) :
         """ compte le nombre d'appel fait sur la fonction """
         self._v_nbeAppel += 1
 
-####
-
     def f_getNbeAppel( self ) :
         """ retourne '_v_nbeAppel' """
         return self._v_nbeAppel
 
-####
-
     def f_timePtrMsg( self ) :
         """ affiche à l'écran le résultat du décorator 'time' """
-        print(  "timeMsg[{}] : durée : {} - moyenne : {} - "\
-                "Nbe d'appel : {} - total : {}".format(
-                    self.f_getFunName(), self.f_getTempEcoule(),
-                    self.f_getTmpMoyen(), self.f_getNbeAppel(),
-                    self.f_getTmpCumule() 
-                    ))
+        if self.f_getAffichage() :
+            print(  "timMsg[ {0} ] : durée : {1} - moyenne : {2} - "\
+                    "Nbe d'appel : {3} - total : {4}".format(
+                        self.f_getFunName(), self.f_getTempEcoule(),
+                        self.f_getTmpMoyen(), self.f_getNbeAppel(),
+                        self.f_getTmpCumule() 
+                        ))
 
 ##########################################################################################
         
 class C_GitChk(object) :
     """**C_GitChk(object)**
     
-    Class permettant de tester la branch (git) sur la quelle on se trouve,
-    et nous informe si nous ne sommes pas sur la branch 'Master',
-    afin d'éviter les opérations malheureuses.
+    Class permettant de tester la branch (git) sur la quelle on se trouve. Un message est
+    affiché sur la console pour nous indiquer la branch courante.
     
-    Cette Class doit être instancier dans la fonction **main()**.
     
-    Le constructeur a un argument par defaut de type **booleen** qui est predefinis
-    sur **True**. Si se parametres est a **False**, l'ensemble des messages seront
-    masques.
+    Cette Class peut être instancier dans la fonction **main()**, ou utilisée comme décorateur.
     
-    Creation de l'instance : ::
-    
-        i_monIstanceGitChk = C_GitChk( [booleen (facultatif si == True)] )
+    - les arguments str('d') et str('f') permettent d'indiquer la branche courante au
+      "d"ébut ou à la "f"in de la fonction décorée. Ces argument ne sont pas pris en
+      compte dans une instance classique.
+      
+    - Les arguments booléin (0-False : 1-True) permettent de désactiver ou d'activer le
+      controle de la branch.
 
     """
     d_adr = {}
         # variable de class, elle est commune à toute les instance de la class
         
-    def __init__( self, *argsGitChk, **kwargsGitChk ) :
+    def __init__( self, *argsDecoratorIst, **kwargsDecoratorIst ) :
         """ Déclaration des variable global """
-        self.argsGitChk         = argsGitChk
+        self.argsDecoratorIst         = argsDecoratorIst
             # positional arguments passés au décorateur
-        self.kwargsGitChk       = kwargsGitChk
+        self.kwargsDecoratorIst       = kwargsDecoratorIst
             # default arguments passés au décorateur
 
         ## valeur par défaut si aucun argument n'est passé
         self.v_ctrl                 = True
         self.v_debutFin             = "d"
             
-            
         ## Control des positional arguments
-        if self.argsGitChk :
-            for arg in self.argsGitChk :
+        if self.argsDecoratorIst :
+            for arg in self.argsDecoratorIst :
                 if isinstance(arg, bool) :
                     self.v_ctrl     = arg
                 
@@ -428,14 +424,12 @@ class C_GitChk(object) :
                     self.v_ctrl     = bool(arg)
 
         ## Control des default arguments pour les clef "ctrl" et "df"
-        if "ctrl" in self.kwargsGitChk :
-            self.v_ctrl             = bool(self.kwargsGitChk["ctrl"])
+        if "ctrl" in self.kwargsDecoratorIst :
+            self.v_ctrl             = bool(self.kwargsDecoratorIst["ctrl"])
 
-        if "df" in self.kwargsGitChk :
-            self.v_debutFin         = self.kwargsGitChk["df"].lower()
+        if "df" in self.kwargsDecoratorIst :
+            self.v_debutFin         = self.kwargsDecoratorIst["df"].lower()
 
-####
- 
     def __del__(self) :
         """destructor
         
@@ -449,8 +443,6 @@ class C_GitChk(object) :
         except FileNotFoundError :
             pass
             
-####
-
     def __call__( self, v_func ) :
         @functools.wraps(v_func)
         def f_appelFonc( *args, **kwargs ) :
@@ -470,8 +462,6 @@ class C_GitChk(object) :
             self.__class__.adr[v_func.__name__] = self
         return f_appelFonc
 
-####
-        
     def f_gitBranchChk(self):
         """ 
         identifie la branch courante et emet une alerte
@@ -496,6 +486,7 @@ class C_GitChk(object) :
                 ##########################################
                 #                                        #
                 #  Attention, vous êtes sur la branch :  #
+                #                                        #
                 #{}{}{}#
                 #                                        #
                 ##########################################
@@ -505,11 +496,11 @@ class C_GitChk(object) :
         else :
             print("\n## le control de branch est desactive")
     
- ####
+##########################################################################################
 
 @C_DebugMsg() 
 @C_Benchmark("time")
-@C_GitChk(1, 'd')
+@C_GitChk(1, 'f')
 def main():
     """ 
     Fonction principale 
@@ -517,35 +508,25 @@ def main():
     Cette Fonction ne sert que pour tester les differentes Class
     et methode de ce projet.
     """
-    # system("cls")
-
+    C_DebugMsg(1)
+    C_Benchmark(1)
+    
     #################################
     # Test de la class 'C_DebugMsg' #
     #################################
-    i_debugTest = C_DebugMsg(True)
+    i_debugTest = C_DebugMsg()
     
-    ## Normal 'end'
     v_dbg = True
     i_debugTest.f_dbgPrint(   v_dbg, 
                             "chaine_de_caractere",
                             main
                         )
                         
-    ## double 'end'
-    i_debugTest.f_dbgPrint(   v_dbg, 
-                            "chaine_de_caractere",
-                            main,
-                            v_endOfLine = "\n\n"
-                        )
-    ## fin de l'instance 
-    del i_debugTest
-    
     ###############################
     # Test de la class 'C_GitChk' #
     ###############################
     i_git = C_GitChk(False)
     i_git.f_gitBranchChk()
-    # del i_git
     
 if __name__ == '__main__':
     main()

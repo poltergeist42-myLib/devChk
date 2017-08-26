@@ -82,9 +82,11 @@ class C_DebugMsg(object) :
             # default arguments passés au décorateur
 
         self._v_funcName        = ""
-        self._v_funcRetun       = ()
+        self._v_outputFn       = ()
+        self._v_inputFnArgs     = 0
+        self._v_inputFnKwargs   = 0
         
-        
+
         ## Control des positional arguments
         if self.argsDecoratorIst :
             for arg in self.argsDecoratorIst :
@@ -93,7 +95,7 @@ class C_DebugMsg(object) :
                 else :
                     C_DebugMsg.v_clsAffichage       = bool(arg)
 
-        ## Control des default arguments pour les clef "ctrl" et "df"
+        ## Control des default arguments
         if "affichage" in self.kwargsDecoratorIst :
             C_DebugMsg.v_clsAffichage      = bool(self.kwargsDecoratorIst["affichage"])
 
@@ -110,24 +112,41 @@ class C_DebugMsg(object) :
             """ méthode appelée à chaque appel de la fonction décorée """
             ## av Fonction décorée
             self.f_setFuncName( v_func )
+            self.f_setInputFnArgs( args )
+            self.f_setInputFnKwargs( kwargs )
             
             ## Fonction décorée
             v_functionDecoree = v_func( *args, **kwargs )
             
             ## ap Fonction décorée
-            self.f_setFuncRetun( v_functionDecoree )
+            self.f_setOutputFn( v_functionDecoree )
             self.f_dbgDecoratorPrint()
             
             return v_functionDecoree
             self.__class__.adr[v_func.__name__] = self
         return f_appelFonc
 
+    def f_setInputFnArgs( self, l_args ) :
+        """ Récupère l'ensenble des 'positional arguments' passés à la fonction """
+        self._v_inputFnArgs  = l_args
+        
+    def f_getInputFnArgs( self ) :
+        """ Retourne '_v_inputFnArgs' """
+        return self._v_inputFnArgs
+        
+    def f_setInputFnKwargs( self, d_kwargs ) :
+        """ Récupère les 'default arguments' passés à la fonction """
+        self._v_inputFnKwargs = d_kwargs
 
+    def f_getInputFnKwargs( self ) :
+        """ Retourne '_v_inputFnKwargs' """
+        return self._v_inputFnKwargs
+    
     def f_setFuncName( self, v_func ) :
         """ récupère le nom de la fonction """
         self._v_funcName = v_func.__name__
     
-    def f_getFunName( self ) :
+    def f_getFuncName( self ) :
         """ retourne '_v_funcName' """
         return self._v_funcName
 
@@ -142,23 +161,40 @@ class C_DebugMsg(object) :
         """ retourne 'C_DebugMsg.v_clsAffichage' """
         return C_DebugMsg.v_clsAffichage
 
-    def f_setFuncRetun( self, v_funcRetun ) :
+    def f_setOutputFn( self, v_funcRetun ) :
         """ permet de récupérer se que retourne la fonction décorée """
-        self._v_funcRetun = v_funcRetun
+        self._v_outputFn = v_funcRetun
 
-    def f_getFuncRetun( self ) :
-        """ retourne '_v_funcRetun' """
-        return self._v_funcRetun
+    def f_getOutputFn( self ) :
+        """ retourne '_v_outputFn' """
+        return self._v_outputFn
 
     def f_dbgDecoratorPrint( self ) :
         """ Permet d'afficher les informations générées par la fonction décorée """
+        print( "dbgMsg[ {} ] :".format(self.f_getFuncName()))
         if self.f_getAffichage() :
-            print(  "dbgMsg[ {0} ] : {1}, {2}".format(
-                        self.f_getFunName(),
-                        type(self.f_getFuncRetun()),
-                        self.f_getFuncRetun()
-                        ))
-
+            # if self.f_getInputFnArgs() :
+            print( "\t* Input :" )
+            for i  in self.f_getInputFnArgs() :
+                print( "\t\t--> {} - {}".format( type(i), i))
+                    
+            # if self.f_getInputFnKwargs( self ) :
+            for k in self.f_getInputFnKwargs() :
+                print( "\t\t--> {} - {}={}".format(
+                    type(self.f_getInputFnKwargs()[k]),
+                    k, self.f_getInputFnKwargs()[k]))
+                    
+            print( "\t* Ouput :" )
+            # if isinstance( self.f_getOutputFn(), NoneType) :
+                # print( "\t\t--> {} - {}".format( 
+                    # type(self.f_getOutputFn()), self.f_getOutputFn()))
+            try :
+                for i in self.f_getOutputFn() :
+                    print( "\t\t--> {} - {}".format( type(i), i))
+            except TypeError:
+                print( "\t\t--> {} - {}".format( 
+                    type(self.f_getOutputFn()), self.f_getOutputFn()))
+                        
     def f_dbgPrint(self, v_chk, v_varName, v_varValue, v_endOfLine = "") :
         """
             Intercept les messages pour les formater de facon homogene.
@@ -321,7 +357,7 @@ class C_Benchmark( object ) :
         """ récupère le nom de la fonction """
         self._v_funcName = v_func.__name__
     
-    def f_getFunName( self ) :
+    def f_getFuncName( self ) :
         """ retourne '_v_funcName' """
         return self._v_funcName
 
@@ -372,7 +408,7 @@ class C_Benchmark( object ) :
         if self.f_getAffichage() :
             print(  "timMsg[ {0} ] : durée : {1} - moyenne : {2} - "\
                     "Nbe d'appel : {3} - total : {4}".format(
-                        self.f_getFunName(), self.f_getTempEcoule(),
+                        self.f_getFuncName(), self.f_getTempEcoule(),
                         self.f_getTmpMoyen(), self.f_getNbeAppel(),
                         self.f_getTmpCumule() 
                         ))

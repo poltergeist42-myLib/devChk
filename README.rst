@@ -14,14 +14,29 @@ Déscription
 
  Librairie servant a l'assistance au developpement.
     
-    Deux Class la composent :
+    Trois Class la composent :
     
         **C_DebugMsg**
             Pour afficher les messages debug en cours de devellopement.
+            
+        **C_Benchmark**
+            permettant d'effectuer des mesures sur une fonction
         
         **C_GitChk**
             Pour tester la branch (git) sur la quelle on se trouve, a fin d'eviter
             les operations malheureuses.
+            
+            
+Installation
+============
+
+ Depuis une invite de commande, ce placer dans le dossier "_3_software\devChk" puis
+ excuter la commande setup : ::
+ 
+    cd .\_3_software\devChk
+    python setup.py install
+    
+**N.B** : vous devez être Root / administrateur pour effectuer cette opération.
 
 Arborescence du projet
 ======================

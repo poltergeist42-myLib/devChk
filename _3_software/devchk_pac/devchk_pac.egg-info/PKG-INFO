@@ -1,0 +1,79 @@
+Metadata-Version: 1.1
+Name: devchk-pac
+Version: 20170902
+Summary: Cette Lib ne fait rien, elle n'existe que pour faire des testes
+Home-page: https://github.com/poltergeist42-myLib/devChk
+Author: Poltergeist42
+Author-email: UNKNOWN
+License: UNKNOWN
+Description: =============================
+        Informations gÃ©nÃ©rales devChk
+        =============================
+        
+        :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
+        :Projet:             devChk
+        :dÃ©pÃ´t GitHub:       https://github.com/poltergeist42-myLib/devChk
+        :documentation:      https://poltergeist42-mylib.github.io/devChk/
+        :Licence:            CC BY-NC-SA 4.0
+        :Liens:              https://creativecommons.org/licenses/by-nc-sa/4.0/
+        
+        DÃ©scription
+        ===========
+        
+         Librairie servant a l'assistance au developpement.
+            
+            Trois Class la composent :
+            
+                **C_DebugMsg**
+                    Pour afficher les messages debug en cours de devellopement.
+                    
+                **C_Benchmark**
+                    permettant d'effectuer des mesures sur une fonction
+                
+                **C_GitChk**
+                    Pour tester la branch (git) sur la quelle on se trouve, a fin d'eviter
+                    les operations malheureuses.
+                    
+                    
+        Installation
+        ============
+        
+         Depuis une invite de commande, ce placer dans le dossier "_3_software\devChk" puis
+         excuter la commande setup : ::
+         
+            cd .\_3_software\devChk
+            python setup.py install
+        
+        Arborescence du projet
+        ======================
+        
+        Pour aider Ã  la comprÃ©hension de mon organisation, voici un bref dÃ©scrptif de
+        l'arborescence de se projet.Cette arborescence est Ã  reproduire si vous rÃ©cupÃ©rez ce dÃ©pÃ´t
+        depuis GitHub. ::
+        
+        	openFile               # Dossier racine du projet (non versionner)
+        	|
+        	+--project             # (branch master) contient l'ensemble du projet en lui mÃªme
+        	|  |
+        	|  +--_1_userDoc       # Contien toute la documentation relative au projet
+        	|  |   |
+        	|  |   \--source       # Dossier rÃ©unissant les sources utilisÃ©es par Sphinx
+        	|  |
+        	|  +--_2_modelisation  # contien tous les plans et toutes les modÃ©lisations du projet
+        	|  |
+        	|  +--_3_software      # Contien toute la partie programmation du projet
+        	|  |
+        	|  \--_4_PCB           # Contient toutes les parties des circuits imprimÃ©s (routage,
+        	|                      # implantation, typon, fichier de perÃ§age, etc
+        	|
+        	\--webDoc              # Dossier racine de la documentation qui doit Ãªtre publiÃ©e
+        	   |
+        	   \--html             # (branch gh-pages) C'est dans se dosier que Sphinx vat
+        	                       # gÃ©nÃ©rer la documentation Ã  publiÃ© sur internet
+        
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python
+Classifier: Natural Language :: French
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3.4

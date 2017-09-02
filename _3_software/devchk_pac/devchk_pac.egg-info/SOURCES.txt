@@ -1,0 +1,7 @@
+setup.py
+devchk_pac/__init__.py
+devchk_pac/devchk.py
+devchk_pac.egg-info/PKG-INFO
+devchk_pac.egg-info/SOURCES.txt
+devchk_pac.egg-info/dependency_links.txt
+devchk_pac.egg-info/top_level.txt

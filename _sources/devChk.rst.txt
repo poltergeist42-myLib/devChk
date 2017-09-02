@@ -1,6 +1,6 @@
 devChk
 ======
 
-.. automodule:: devChk_pac.devChk
+.. automodule:: devchk_pac.devchk
    :members:
    

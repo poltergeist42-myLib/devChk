@@ -76,10 +76,22 @@ ToDo-list
 ------------------------------------------------------------------------------------------
     
     :Date de saisie:        20170822
-    :Date de traitemant:    
+    :Date de traitemant:    20170825
     :Cible:                 software
-    :Status:                NONE
-    :Problematique:         Prendre en compte l'état de 'self.affichage' en mode
-                            décorateur.
-    :Traitement:            
+    :Status:                DONE
+    :Problematique:         Prendre en compte l'état de 'self.affichage' pour dbg
+    :Traitement:            Mise en place d'une varriable de classe fonctionnant aussi
+                            bien en mode 'instance' qu'en mode 'décorateur'
+                            ( état par défaut : masqué )
+                                      
+------------------------------------------------------------------------------------------
+    
+    :Date de saisie:        20170825
+    :Date de traitemant:    20170825
+    :Cible:                 software
+    :Status:                DONE
+    :Problematique:         Prendre en compte l'état de 'self.affichage' pour benchmark
+    :Traitement:            Mise en place d'une varriable de classe fonctionnant aussi
+                            bien en mode 'instance' qu'en mode 'décorateur'
+                            ( état par défaut : masqué )
                    

@@ -76,11 +76,11 @@
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>C_DebugMsg</strong></dt>
-<dd>Pour afficher les messages debug en cours de devellopement.</dd>
+<dd>Pour afficher les messages débug en cours de développement.</dd>
 <dt><strong>C_Benchmark</strong></dt>
 <dd>permettant d’effectuer des mesures sur une fonction</dd>
 <dt><strong>C_GitChk</strong></dt>
-<dd>Pour tester la branch (git) sur la quelle on se trouve, a fin d’eviter
+<dd>Pour tester la branch (git) sur la quelle on se trouve, a fin d’éviter
 les operations malheureuses.</dd>
 </dl>
 </div></blockquote>
@@ -90,9 +90,9 @@ les operations malheureuses.</dd>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Lien permanent vers ce titre">¶</a></h2>
 <blockquote>
-<div><p>Depuis une invite de commande, ce placer dans le dossier «&nbsp;_3_softwaredevChk&nbsp;» puis
+<div><p>Depuis une invite de commande, ce placer dans le dossier «&nbsp;_3_softwaredevchk_pac&nbsp;» puis
 excuter la commande setup :</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span>\<span class="n">_3_software</span>\<span class="n">devChk</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span>\<span class="n">_3_software</span>\<span class="n">devchk_pac</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
@@ -101,27 +101,27 @@ excuter la commande setup :</p>
 </div>
 <div class="section" id="arborescence-du-projet">
 <h2>Arborescence du projet<a class="headerlink" href="#arborescence-du-projet" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Pour aider à la compréhension de mon organisation, voici un bref déscrptif de
+<p>Pour aider à la compréhension de mon organisation, voici un bref descriptif de
 l’arborescence de se projet.Cette arborescence est à reproduire si vous récupérez ce dépôt
 depuis GitHub.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">openFile</span>               <span class="c1"># Dossier racine du projet (non versionner)</span>
 <span class="o">|</span>
 <span class="o">+--</span><span class="n">project</span>             <span class="c1"># (branch master) contient l&#39;ensemble du projet en lui même</span>
 <span class="o">|</span>  <span class="o">|</span>
-<span class="o">|</span>  <span class="o">+--</span><span class="n">_1_userDoc</span>       <span class="c1"># Contien toute la documentation relative au projet</span>
+<span class="o">|</span>  <span class="o">+--</span><span class="n">_1_userDoc</span>       <span class="c1"># Contiens toute la documentation relative au projet</span>
 <span class="o">|</span>  <span class="o">|</span>   <span class="o">|</span>
 <span class="o">|</span>  <span class="o">|</span>   \<span class="o">--</span><span class="n">source</span>       <span class="c1"># Dossier réunissant les sources utilisées par Sphinx</span>
 <span class="o">|</span>  <span class="o">|</span>
-<span class="o">|</span>  <span class="o">+--</span><span class="n">_2_modelisation</span>  <span class="c1"># contien tous les plans et toutes les modélisations du projet</span>
+<span class="o">|</span>  <span class="o">+--</span><span class="n">_2_modelisation</span>  <span class="c1"># Contiens tous les plans et toutes les modélisations du projet</span>
 <span class="o">|</span>  <span class="o">|</span>
-<span class="o">|</span>  <span class="o">+--</span><span class="n">_3_software</span>      <span class="c1"># Contien toute la partie programmation du projet</span>
+<span class="o">|</span>  <span class="o">+--</span><span class="n">_3_software</span>      <span class="c1"># Contiens toute la partie programmation du projet</span>
 <span class="o">|</span>  <span class="o">|</span>
 <span class="o">|</span>  \<span class="o">--</span><span class="n">_4_PCB</span>           <span class="c1"># Contient toutes les parties des circuits imprimés (routage,</span>
 <span class="o">|</span>                      <span class="c1"># implantation, typon, fichier de perçage, etc</span>
 <span class="o">|</span>
 \<span class="o">--</span><span class="n">webDoc</span>              <span class="c1"># Dossier racine de la documentation qui doit être publiée</span>
    <span class="o">|</span>
-   \<span class="o">--</span><span class="n">html</span>             <span class="c1"># (branch gh-pages) C&#39;est dans se dosier que Sphinx vat</span>
+   \<span class="o">--</span><span class="n">html</span>             <span class="c1"># (branch gh-pages) C&#39;est dans se dossier que Sphinx va</span>
                        <span class="c1"># générer la documentation à publié sur internet</span>
 </pre></div>
 </div>

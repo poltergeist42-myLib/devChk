@@ -55,9 +55,9 @@
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Nom du fichier:</th><td class="field-body">devChk.py</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Autheur:</th><td class="field-body"><a class="reference external" href="https://github.com/poltergeist42">Poltergeist42</a></td>
+<tr class="field-even field"><th class="field-name">Auteur:</th><td class="field-body"><a class="reference external" href="https://github.com/poltergeist42">Poltergeist42</a></td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">20170902</td>
+<tr class="field-odd field"><th class="field-name">Version:</th><td class="field-body">20170915</td>
 </tr>
 </tbody>
 </table>
@@ -134,7 +134,7 @@
 <dt id="devchk_pac.devchk.C_DebugMsg">
 <em class="property">class </em><code class="descclassname">devchk_pac.devchk.</code><code class="descname">C_DebugMsg</code><span class="sig-paren">(</span><em>*argsDecoratorIst</em>, <em>**kwargsDecoratorIst</em><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_DebugMsg" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p><strong>C_DebugMsg(object)</strong></p>
-<p>Class permettant d’afficher les message de debug.</p>
+<p>Class permettant d’afficher les message de débug.</p>
 <p>Cette Class peut être utilisée en tan que décorateur à placer avant l’appel de
 la fonction.</p>
 <p>Appel du décorateur :</p>
@@ -144,12 +144,12 @@ la fonction.</p>
 </div>
 <p>Cette class peut aussi être instancier :
 Elle doit être instancier dans la fonction <strong>__init__()</strong> pour une Class
-et instancier en premier dans la fontion <strong>main()</strong> pour les fonctions
+et instancier en premier dans la fonction <strong>main()</strong> pour les fonctions
 n’appartenenant pas a une Class.</p>
-<p>Le constructeur a un argument par defaut de type <strong>booleen</strong> qui est predefinis
-sur <strong>True</strong>. Si se parametres est a <strong>False</strong>,
+<p>Le constructeur a un argument par defaut de type <strong>booleen</strong> qui est prédéfinis
+sur <strong>True</strong>. Si se paramétrés est a <strong>False</strong>,
 l’ensemble des messages seront masques.</p>
-<p>Creation de l’instance :</p>
+<p>Création de l’instance :</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">i_monIstanceDbg</span> <span class="o">=</span> <span class="n">C_DebugMsg</span><span class="p">(</span> <span class="p">[</span><span class="n">booleen</span> <span class="p">(</span><span class="n">facultatif</span> <span class="n">si</span> <span class="o">==</span> <span class="kc">True</span><span class="p">)]</span> <span class="p">)</span>
 </pre></div>
 </div>
@@ -168,11 +168,11 @@ l’ensemble des messages seront masques.</p>
 <dl class="method">
 <dt id="devchk_pac.devchk.C_DebugMsg.f_dbgPrint">
 <code class="descname">f_dbgPrint</code><span class="sig-paren">(</span><em>v_chk</em>, <em>v_varName</em>, <em>v_varValue</em>, <em>v_endOfLine=&nbsp;»</em><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_DebugMsg.f_dbgPrint" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Intercept les messages pour les formater de facon homogene.</p>
+<dd><p>Intercepte les messages pour les formater de façon homogène.</p>
 <p>Pour permettre de masquer les messages d’une seule fonction a la fois,
-il est conseille d’ajouter une variable local initialisee a <strong>True</strong>
-et de l’appeler a chaque fois que le debug et necessaire. Cette variable doit etre
-mise a <strong>False</strong> pour que l’affichage local soit desactive.</p>
+il est conseille d’ajouter une variable local initialisée a <strong>True</strong>
+et de l’appeler a chaque fois que le débug et nécessaire. Cette variable doit etre
+mise a <strong>False</strong> pour que l’affichage local soit désactive.</p>
 <p>Ex:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Affichage active</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">True</span>
@@ -189,18 +189,18 @@ mise a <strong>False</strong> pour que l’affichage local soit desactive.</p>
                         <span class="p">)</span>
 </pre></div>
 </div>
-<p>Pour desactiver l’affichage d’un seul message a la fois, on peut remplacer la
+<p>Pour désactiver l’affichage d’un seul message a la fois, on peut remplacer la
 variable locale par une valeur <strong>booleen</strong>. On peut aussi simplement commenter
-la ligne du message de debug.</p>
+la ligne du message de débug.</p>
 <p>Ex:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Affichage desactive par une valeur booleen</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="c1"># Affichage désactive par une valeur booleen</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="n">i_monIstanceDbg</span><span class="o">.</span><span class="n">f_dbgPrint</span><span class="p">(</span>   <span class="kc">False</span><span class="p">,</span> 
                             <span class="p">[</span><span class="s2">&quot;chaine_de_caractere&quot;</span><span class="p">],</span>
                             <span class="p">[</span><span class="n">la_variable_a_controller</span><span class="p">]</span>
                         <span class="p">)</span>
                     
-<span class="c1"># Affichage desactive en commentant la ligne</span>
+<span class="c1"># Affichage désactive en commentant la ligne</span>
 <span class="n">v_dbg</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># i_monIstanceDbg.f_dbgPrint(   v_dbg, </span>
                         <span class="c1"># [&quot;chaine_de_caractere&quot; ou varialbe_de_reference],</span>
@@ -208,7 +208,7 @@ la ligne du message de debug.</p>
                     <span class="c1"># )</span>
 </pre></div>
 </div>
-<p>Pour faciliter la lecture lors du debug un numero unique est attribue
+<p>Pour faciliter la lecture lors du débug un numéro unique est attribue
 a chaque fonction.</p>
 </dd></dl>
 
@@ -258,7 +258,7 @@ a chaque fonction.</p>
 <dl class="method">
 <dt id="devchk_pac.devchk.C_DebugMsg.f_setInputFnArgs">
 <code class="descname">f_setInputFnArgs</code><span class="sig-paren">(</span><em>l_args</em><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_DebugMsg.f_setInputFnArgs" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Récupère l’ensenble des “positional arguments” passés à la fonction</p>
+<dd><p>Récupère l’ensemble des “positional arguments” passés à la fonction</p>
 </dd></dl>
 
 <dl class="method">
@@ -281,8 +281,8 @@ a chaque fonction.</p>
 <dd><p><strong>C_Benchmark( object )</strong></p>
 <p>Calss permettant d’effectuer des mesures sur une fonction</p>
 <ul class="simple">
-<li>si «&nbsp;time&nbsp;» est passé comme premier argument, la classe renvaira le temps
-d’éxécution de la fonction décorée.</li>
+<li>si «&nbsp;time&nbsp;» est passé comme premier argument, la classe renverra le temps
+d’exécution de la fonction décorée.</li>
 </ul>
 <dl class="method">
 <dt id="devchk_pac.devchk.C_Benchmark.f_getAffichage">
@@ -330,7 +330,7 @@ d’éxécution de la fonction décorée.</li>
 <dt id="devchk_pac.devchk.C_Benchmark.f_setAffichage">
 <code class="descname">f_setAffichage</code><span class="sig-paren">(</span><em>v_bool</em><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_Benchmark.f_setAffichage" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p><strong>f_setAffichage( bool )</strong></p>
-<p>permet d’activer ( True ) ou de desactiver ( False ) l’affichage.</p>
+<p>permet d’activer ( True ) ou de désactiver ( False ) l’affichage.</p>
 </dd></dl>
 
 <dl class="method">
@@ -348,32 +348,32 @@ d’éxécution de la fonction décorée.</li>
 <dl class="method">
 <dt id="devchk_pac.devchk.C_Benchmark.f_setStartTime">
 <code class="descname">f_setStartTime</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_Benchmark.f_setStartTime" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>récupère le début d’éxécution de la fonction décorée</p>
+<dd><p>récupère le début d’exécution de la fonction décorée</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="devchk_pac.devchk.C_Benchmark.f_setTempEcoule">
 <code class="descname">f_setTempEcoule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_Benchmark.f_setTempEcoule" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>calcul le temp ecoulé depuis le début de fonctionnement de la fonction</p>
+<dd><p>calcul le temps écoule depuis le début de fonctionnement de la fonction</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="devchk_pac.devchk.C_Benchmark.f_setTmpCumule">
 <code class="descname">f_setTmpCumule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_Benchmark.f_setTmpCumule" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>Calcul le temp total d’éxécution de la fonction (addition des temps de
+<dd><p>Calcul le temps total d’exécution de la fonction (addition des temps de
 chaque appel)</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="devchk_pac.devchk.C_Benchmark.f_setTmpMoyen">
 <code class="descname">f_setTmpMoyen</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_Benchmark.f_setTmpMoyen" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>&nbsp;» calcul la durée moyenne d’éxécution de la fonction décorée</p>
+<dd><p>&nbsp;» calcul la durée moyenne d’exécution de la fonction décorée</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="devchk_pac.devchk.C_Benchmark.f_timePtrMsg">
 <code class="descname">f_timePtrMsg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_Benchmark.f_timePtrMsg" title="Lien permanent vers cette définition">¶</a></dt>
-<dd><p>affiche à l’écran le résultat du décorator “time”</p>
+<dd><p>affiche à l’écran le résultat du décorateur “time”</p>
 </dd></dl>
 
 </dd></dl>
@@ -389,14 +389,14 @@ affiché sur la console pour nous indiquer la branch courante.</p>
 <li>les arguments str(“d”) et str(“f”) permettent d’indiquer la branche courante au
 «&nbsp;d&nbsp;»ébut ou à la «&nbsp;f&nbsp;»in de la fonction décorée. Ces argument ne sont pas pris en
 compte dans une instance classique.</li>
-<li>Les arguments booléin (0-False : 1-True) permettent de désactiver ou d’activer le
-controle de la branch.</li>
+<li>Les arguments boolean (0-False : 1-True) permettent de désactiver ou d’activer le
+contrôle de la branch.</li>
 </ul>
 <dl class="method">
 <dt id="devchk_pac.devchk.C_GitChk.f_gitBranchChk">
 <code class="descname">f_gitBranchChk</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#devchk_pac.devchk.C_GitChk.f_gitBranchChk" title="Lien permanent vers cette définition">¶</a></dt>
 <dd><p>identifie la branch courante et emet une alerte
-si elle est differente de “* master”</p>
+si elle est différente de “* master”</p>
 </dd></dl>
 
 </dd></dl>

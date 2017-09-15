@@ -17,23 +17,23 @@ Déscription
     Trois Class la composent :
     
         **C_DebugMsg**
-            Pour afficher les messages debug en cours de devellopement.
+            Pour afficher les messages débug en cours de développement.
             
         **C_Benchmark**
             permettant d'effectuer des mesures sur une fonction
         
         **C_GitChk**
-            Pour tester la branch (git) sur la quelle on se trouve, a fin d'eviter
+            Pour tester la branch (git) sur la quelle on se trouve, a fin d’éviter
             les operations malheureuses.
             
             
 Installation
 ============
 
- Depuis une invite de commande, ce placer dans le dossier "_3_software\devChk" puis
+ Depuis une invite de commande, ce placer dans le dossier "_3_software\devchk_pac" puis
  excuter la commande setup : ::
  
-    cd .\_3_software\devChk
+    cd .\_3_software\devchk_pac
     python setup.py install
     
 **N.B** : vous devez être Root / administrateur pour effectuer cette opération.
@@ -41,7 +41,7 @@ Installation
 Arborescence du projet
 ======================
 
-Pour aider à la compréhension de mon organisation, voici un bref déscrptif de
+Pour aider à la compréhension de mon organisation, voici un bref descriptif de
 l'arborescence de se projet.Cette arborescence est à reproduire si vous récupérez ce dépôt
 depuis GitHub. ::
 
@@ -49,19 +49,18 @@ depuis GitHub. ::
 	|
 	+--project             # (branch master) contient l'ensemble du projet en lui même
 	|  |
-	|  +--_1_userDoc       # Contien toute la documentation relative au projet
+	|  +--_1_userDoc       # Contiens toute la documentation relative au projet
 	|  |   |
 	|  |   \--source       # Dossier réunissant les sources utilisées par Sphinx
 	|  |
-	|  +--_2_modelisation  # contien tous les plans et toutes les modélisations du projet
+	|  +--_2_modelisation  # Contiens tous les plans et toutes les modélisations du projet
 	|  |
-	|  +--_3_software      # Contien toute la partie programmation du projet
+	|  +--_3_software      # Contiens toute la partie programmation du projet
 	|  |
 	|  \--_4_PCB           # Contient toutes les parties des circuits imprimés (routage,
 	|                      # implantation, typon, fichier de perçage, etc
 	|
 	\--webDoc              # Dossier racine de la documentation qui doit être publiée
 	   |
-	   \--html             # (branch gh-pages) C'est dans se dosier que Sphinx vat
+	   \--html             # (branch gh-pages) C'est dans se dossier que Sphinx va
 	                       # générer la documentation à publié sur internet
-

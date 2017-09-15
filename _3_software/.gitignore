@@ -7,9 +7,10 @@
 ## [ Dossiers a ignorer ]
 _3-1_test*/
 oldLibVers*/
-devChk/build
-devChk/dist
-devChk/devChk.egg-info
+*/build
+*/dist
+*/*.egg-info
+*__pycache__*
 
 ## [ listes des extentions a ignorer ]
 *.FCStd1

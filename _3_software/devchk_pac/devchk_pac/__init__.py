@@ -16,7 +16,7 @@
             les operations malheureuses.
 """
 
-__version__= "20170902"
+__version__= "20170915"
 
 from devchk_pac.devchk import C_DebugMsg
 from devchk_pac.devchk import C_Benchmark

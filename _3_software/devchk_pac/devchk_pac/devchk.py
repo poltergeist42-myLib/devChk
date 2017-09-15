@@ -7,8 +7,8 @@ Infos
 =====
 
    :Nom du fichier:     devChk.py
-   :Autheur:            `Poltergeist42 <https://github.com/poltergeist42>`_
-   :Version:            20170902
+   :Auteur:            `Poltergeist42 <https://github.com/poltergeist42>`_
+   :Version:            20170915
 
 ####
 
@@ -57,7 +57,7 @@ __all__ = ["C_DebugMsg", "C_Benchmark", "C_GitChk"]
 class C_DebugMsg(object) :
     """ **C_DebugMsg(object)**
     
-        Class permettant d'afficher les message de debug.
+        Class permettant d'afficher les message de débug.
 
         Cette Class peut être utilisée en tan que décorateur à placer avant l'appel de
         la fonction. 
@@ -70,14 +70,14 @@ class C_DebugMsg(object) :
         
         Cette class peut aussi être instancier :
         Elle doit être instancier dans la fonction **__init__()** pour une Class
-        et instancier en premier dans la fontion **main()** pour les fonctions
+        et instancier en premier dans la fonction **main()** pour les fonctions
         n'appartenenant pas a une Class.
                 
-        Le constructeur a un argument par defaut de type **booleen** qui est predefinis
-        sur **True**. Si se parametres est a **False**,
+        Le constructeur a un argument par defaut de type **booleen** qui est prédéfinis
+        sur **True**. Si se paramétrés est a **False**,
         l'ensemble des messages seront masques.
         
-        Creation de l'instance :
+        Création de l'instance :
         ::
         
             i_monIstanceDbg = C_DebugMsg( [booleen (facultatif si == True)] )
@@ -138,7 +138,7 @@ class C_DebugMsg(object) :
         return f_appelFonc
 
     def f_setInputFnArgs( self, l_args ) :
-        """ Récupère l'ensenble des 'positional arguments' passés à la fonction """
+        """ Récupère l’ensemble des 'positional arguments' passés à la fonction """
         self._v_inputFnArgs  = l_args
         
     def f_getInputFnArgs( self ) :
@@ -212,12 +212,12 @@ class C_DebugMsg(object) :
                         
     def f_dbgPrint(self, v_chk, v_varName, v_varValue, v_endOfLine = "") :
         """
-            Intercept les messages pour les formater de facon homogene.
+            Intercepte les messages pour les formater de façon homogène.
             
             Pour permettre de masquer les messages d'une seule fonction a la fois,
-            il est conseille d'ajouter une variable local initialisee a **True**
-            et de l'appeler a chaque fois que le debug et necessaire. Cette variable doit etre
-            mise a **False** pour que l'affichage local soit desactive.
+            il est conseille d'ajouter une variable local initialisée a **True**
+            et de l'appeler a chaque fois que le débug et nécessaire. Cette variable doit etre
+            mise a **False** pour que l'affichage local soit désactive.
             
             Ex: ::
                     
@@ -235,27 +235,27 @@ class C_DebugMsg(object) :
                                                 [la_variable_a_controller]
                                             )
                                         
-            Pour desactiver l'affichage d'un seul message a la fois, on peut remplacer la
+            Pour désactiver l'affichage d'un seul message a la fois, on peut remplacer la
             variable locale par une valeur **booleen**. On peut aussi simplement commenter
-            la ligne du message de debug.
+            la ligne du message de débug.
             
             Ex: ::
             
-                    # Affichage desactive par une valeur booleen
+                    # Affichage désactive par une valeur booleen
                     v_dbg = True
                     i_monIstanceDbg.f_dbgPrint(   False, 
                                                 ["chaine_de_caractere"],
                                                 [la_variable_a_controller]
                                             )
                                         
-                    # Affichage desactive en commentant la ligne
+                    # Affichage désactive en commentant la ligne
                     v_dbg = True
                     # i_monIstanceDbg.f_dbgPrint(   v_dbg, 
                                             # ["chaine_de_caractere" ou varialbe_de_reference],
                                             # [la_variable_a_controller]
                                         # )
                                         
-            Pour faciliter la lecture lors du debug un numero unique est attribue
+            Pour faciliter la lecture lors du débug un numéro unique est attribue
             a chaque fonction.
         """
         if v_chk and C_DebugMsg.v_clsAffichage :
@@ -284,8 +284,8 @@ class C_Benchmark( object ) :
     
         Calss permettant d'effectuer des mesures sur une fonction
 
-        - si "time" est passé comme premier argument, la classe renvaira le temps
-          d'éxécution de la fonction décorée.
+        - si "time" est passé comme premier argument, la classe renverra le temps
+          d’exécution de la fonction décorée.
     """
     d_adr = {}
         # variable de class, elle est commune à toute les instance de la class
@@ -299,7 +299,7 @@ class C_Benchmark( object ) :
         self.kwargsDecoratorIst    = kwargsDecoratorIst
             # default arguments passés au décorateur
             
-        ## Control des positional arguments
+        ## Contrôle des positional arguments
         if self.argsDecoratorIst :
             for arg in self.argsDecoratorIst :
                 if isinstance(arg, bool) :
@@ -360,7 +360,7 @@ class C_Benchmark( object ) :
     def f_setAffichage( self, v_bool ) :
         """ **f_setAffichage( bool )**
         
-            permet d'activer ( True ) ou de desactiver ( False ) l'affichage.
+            permet d'activer ( True ) ou de désactiver ( False ) l'affichage.
         """
         C_Benchmark.v_clsAffichage = bool( v_bool )
         
@@ -377,7 +377,7 @@ class C_Benchmark( object ) :
         return self._v_funcName
 
     def f_setStartTime( self ) :
-        """ récupère le début d'éxécution de la fonction décorée """
+        """ récupère le début d’exécution de la fonction décorée """
         self._v_startTime = time.clock()
         
     def f_getStartTime( self ) :
@@ -385,7 +385,7 @@ class C_Benchmark( object ) :
         return self._v_startTime
 
     def f_setTempEcoule( self ) :
-        """ calcul le temp ecoulé depuis le début de fonctionnement de la fonction """
+        """ calcul le temps écoule depuis le début de fonctionnement de la fonction """
         self._v_tmpEcoule = time.clock() - self.f_getStartTime()
 
     def f_getTempEcoule( self ) :
@@ -393,7 +393,7 @@ class C_Benchmark( object ) :
         return self._v_tmpEcoule
         
     def f_setTmpCumule( self ) :
-        """ Calcul le temp total d'éxécution de la fonction (addition des temps de
+        """ Calcul le temps total d’exécution de la fonction (addition des temps de
             chaque appel)
         """
         self._v_tmpCumule += self.f_getTempEcoule()
@@ -403,7 +403,7 @@ class C_Benchmark( object ) :
         return self._v_tmpCumule
 
     def f_setTmpMoyen( self ) :
-        """" calcul la durée moyenne d'éxécution de la fonction décorée """
+        """" calcul la durée moyenne d’exécution de la fonction décorée """
         self._v_tmpMoyen = self.f_getTmpCumule() / self.f_getNbeAppel()
 
     def f_getTmpMoyen( self ) :
@@ -419,7 +419,7 @@ class C_Benchmark( object ) :
         return self._v_nbeAppel
 
     def f_timePtrMsg( self ) :
-        """ affiche à l'écran le résultat du décorator 'time' """
+        """ affiche à l'écran le résultat du décorateur 'time' """
         if self.f_getAffichage() :
             print(  "timMsg[ {0} ] : durée : {1} - moyenne : {2} - "\
                     "Nbe d'appel : {3} - total : {4}".format(
@@ -443,8 +443,8 @@ class C_GitChk(object) :
       "d"ébut ou à la "f"in de la fonction décorée. Ces argument ne sont pas pris en
       compte dans une instance classique.
       
-    - Les arguments booléin (0-False : 1-True) permettent de désactiver ou d'activer le
-      controle de la branch.
+    - Les arguments boolean (0-False : 1-True) permettent de désactiver ou d'activer le
+      contrôle de la branch.
 
     """
     d_adr = {}
@@ -461,7 +461,7 @@ class C_GitChk(object) :
         self.v_ctrl                 = True
         self.v_debutFin             = "d"
             
-        ## Control des positional arguments
+        ## Controle des positional arguments
         if self.argsDecoratorIst :
             for arg in self.argsDecoratorIst :
                 if isinstance(arg, bool) :
@@ -474,7 +474,7 @@ class C_GitChk(object) :
                 else :
                     self.v_ctrl     = bool(arg)
 
-        ## Control des default arguments pour les clef "ctrl" et "df"
+        ## Controle des default arguments pour les clef "ctrl" et "df"
         if "ctrl" in self.kwargsDecoratorIst :
             self.v_ctrl             = bool(self.kwargsDecoratorIst["ctrl"])
 
@@ -516,7 +516,7 @@ class C_GitChk(object) :
     def f_gitBranchChk(self):
         """ 
         identifie la branch courante et emet une alerte
-        si elle est differente de '* master'
+        si elle est différente de '* master'
         
         """
         if self.v_ctrl :
@@ -545,7 +545,7 @@ class C_GitChk(object) :
                     )
 
         else :
-            print("\n## le control de branch est desactive")
+            print("\n## le control de branch est désactive")
     
 ##########################################################################################
 
@@ -557,7 +557,7 @@ def main():
     Fonction principale 
     
     Cette Fonction ne sert que pour tester les differentes Class
-    et methode de ce projet.
+    et méthode de ce projet.
     """
     C_DebugMsg(1)
     C_Benchmark(1)

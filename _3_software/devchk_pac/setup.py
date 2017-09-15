@@ -39,7 +39,7 @@ setup(
     # author_email="",
  
     # Une description courte
-    description="Cette Lib ne fait rien, elle n'existe que pour faire des testes",
+    description="Cette Lib permet d'aider au développement en affichange des informations supplémentaire",
  
     # Une description longue, sera affichée pour présenter la lib
     # Généralement on dump le README ici

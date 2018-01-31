@@ -94,4 +94,20 @@ ToDo-list
     :Traitement:            Mise en place d'une varriable de classe fonctionnant aussi
                             bien en mode 'instance' qu'en mode 'décorateur'
                             ( état par défaut : masqué )
-                   
+
+------------------------------------------------------------------------------------------
+    
+    :Date de saisie:        20171214
+    :Date de traitemant:    20171222
+    :Cible:                 software
+    :Status:                DONE
+    :Problematique:         C_logIt : faire une méthode chkFuncName
+    :Traitement:            Créer dans la classe mère
+------------------------------------------------------------------------------------------
+    
+    :Date de saisie:        20171214
+    :Date de traitemant:    
+    :Cible:                 software
+    :Status:                None
+    :Problematique:         C_logIt : faire un couple méthode set/get MsgFormat
+    :Traitement:            

@@ -76,12 +76,24 @@
 <blockquote>
 <div><dl class="docutils">
 <dt><strong>C_DebugMsg</strong></dt>
-<dd>Pour afficher les messages débug en cours de développement.</dd>
+<dd>Pour afficher les messages debug en cours de devellopement.</dd>
 <dt><strong>C_Benchmark</strong></dt>
 <dd>permettant d’effectuer des mesures sur une fonction</dd>
 <dt><strong>C_GitChk</strong></dt>
-<dd>Pour tester la branch (git) sur la quelle on se trouve, a fin d’éviter
+<dd>Pour tester la branch (git) sur la quelle on se trouve, a fin d’eviter
 les operations malheureuses.</dd>
+<dt><strong>C_logIt</strong></dt>
+<dd><p class="first">Permet de creer un fichier journal. Ce journal ce presente sous la forme suivante :</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="s1">&#39;Titre de l&#39;</span><span class="n">action</span><span class="s1">&#39;</span>
+ <span class="o">=================</span>
+
+<span class="n">Descriptif</span>
+
+<span class="p">[</span> <span class="n">TimeCode</span> <span class="p">]</span> <span class="p">:</span> <span class="n">action</span> <span class="n">effectuee</span>
+</pre></div>
+</div>
+<p class="last"><strong>N.B</strong> : La library “logging” fait déjà tous ça bien mieu.</p>
+</dd>
 </dl>
 </div></blockquote>
 </div></blockquote>
@@ -90,38 +102,56 @@ les operations malheureuses.</dd>
 <div class="section" id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Lien permanent vers ce titre">¶</a></h2>
 <blockquote>
-<div><p>Depuis une invite de commande, ce placer dans le dossier «&nbsp;_3_softwaredevchk_pac&nbsp;» puis
+<div><p>Depuis une invite de commande, ce placer dans le dossier «&nbsp;_3_softwaredevChk&nbsp;» puis
 excuter la commande setup :</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span>\<span class="n">_3_software</span>\<span class="n">devchk_pac</span>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">cd</span> <span class="o">.</span>\<span class="n">_3_software</span>\<span class="n">devChk_pac</span>
 <span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
 </pre></div>
 </div>
 </div></blockquote>
 <p><strong>N.B</strong> : vous devez être Root / administrateur pour effectuer cette opération.</p>
 </div>
+<hr class="docutils" />
+<div class="section" id="desinstallation">
+<h2>Désinstallation<a class="headerlink" href="#desinstallation" title="Lien permanent vers ce titre">¶</a></h2>
+<p><strong>N.B</strong> : vous devez être Root / administrateur pour effectuer cette opération.</p>
+<blockquote>
+<div><p>Depuis une invite de command, executer la commande :</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="nb">list</span> <span class="o">--</span><span class="nb">format</span><span class="o">=</span><span class="n">columns</span>
+    <span class="c1"># permet d&#39;afficher la liste des paquages installés</span>
+
+<span class="n">pip</span> <span class="n">uninstall</span> <span class="p">[</span><span class="n">nom_du_paquet</span><span class="p">]</span>
+
+<span class="n">ex</span> <span class="p">:</span>
+<span class="n">pip</span> <span class="n">uninstall</span> <span class="n">devchk</span><span class="o">-</span><span class="n">pac</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+<hr class="docutils" />
 <div class="section" id="arborescence-du-projet">
 <h2>Arborescence du projet<a class="headerlink" href="#arborescence-du-projet" title="Lien permanent vers ce titre">¶</a></h2>
-<p>Pour aider à la compréhension de mon organisation, voici un bref descriptif de
+<p>Pour aider à la compréhension de mon organisation, voici un bref déscrptif de
 l’arborescence de se projet.Cette arborescence est à reproduire si vous récupérez ce dépôt
 depuis GitHub.</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">openFile</span>               <span class="c1"># Dossier racine du projet (non versionner)</span>
 <span class="o">|</span>
 <span class="o">+--</span><span class="n">project</span>             <span class="c1"># (branch master) contient l&#39;ensemble du projet en lui même</span>
 <span class="o">|</span>  <span class="o">|</span>
-<span class="o">|</span>  <span class="o">+--</span><span class="n">_1_userDoc</span>       <span class="c1"># Contiens toute la documentation relative au projet</span>
+<span class="o">|</span>  <span class="o">+--</span><span class="n">_1_userDoc</span>       <span class="c1"># Contien toute la documentation relative au projet</span>
 <span class="o">|</span>  <span class="o">|</span>   <span class="o">|</span>
 <span class="o">|</span>  <span class="o">|</span>   \<span class="o">--</span><span class="n">source</span>       <span class="c1"># Dossier réunissant les sources utilisées par Sphinx</span>
 <span class="o">|</span>  <span class="o">|</span>
-<span class="o">|</span>  <span class="o">+--</span><span class="n">_2_modelisation</span>  <span class="c1"># Contiens tous les plans et toutes les modélisations du projet</span>
+<span class="o">|</span>  <span class="o">+--</span><span class="n">_2_modelisation</span>  <span class="c1"># contien tous les plans et toutes les modélisations du projet</span>
 <span class="o">|</span>  <span class="o">|</span>
-<span class="o">|</span>  <span class="o">+--</span><span class="n">_3_software</span>      <span class="c1"># Contiens toute la partie programmation du projet</span>
+<span class="o">|</span>  <span class="o">+--</span><span class="n">_3_software</span>      <span class="c1"># Contien toute la partie programmation du projet</span>
 <span class="o">|</span>  <span class="o">|</span>
 <span class="o">|</span>  \<span class="o">--</span><span class="n">_4_PCB</span>           <span class="c1"># Contient toutes les parties des circuits imprimés (routage,</span>
 <span class="o">|</span>                      <span class="c1"># implantation, typon, fichier de perçage, etc</span>
 <span class="o">|</span>
 \<span class="o">--</span><span class="n">webDoc</span>              <span class="c1"># Dossier racine de la documentation qui doit être publiée</span>
    <span class="o">|</span>
-   \<span class="o">--</span><span class="n">html</span>             <span class="c1"># (branch gh-pages) C&#39;est dans se dossier que Sphinx va</span>
+   \<span class="o">--</span><span class="n">html</span>             <span class="c1"># (branch gh-pages) C&#39;est dans se dosier que Sphinx vat</span>
                        <span class="c1"># générer la documentation à publié sur internet</span>
 </pre></div>
 </div>
@@ -140,6 +170,7 @@ depuis GitHub.</p>
 <li><a class="reference internal" href="#informations-generales-devchk">Informations générales devChk</a><ul>
 <li><a class="reference internal" href="#description">Déscription</a></li>
 <li><a class="reference internal" href="#installation">Installation</a></li>
+<li><a class="reference internal" href="#desinstallation">Désinstallation</a></li>
 <li><a class="reference internal" href="#arborescence-du-projet">Arborescence du projet</a></li>
 </ul>
 </li>

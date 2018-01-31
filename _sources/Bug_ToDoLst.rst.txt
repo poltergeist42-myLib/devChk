@@ -103,6 +103,7 @@ ToDo-list
     :Status:                DONE
     :Problematique:         C_logIt : faire une méthode chkFuncName
     :Traitement:            Créer dans la classe mère
+    
 ------------------------------------------------------------------------------------------
     
     :Date de saisie:        20171214
